@@ -3,9 +3,9 @@ import {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link, browserHistory} from 'react-router';
 
-import Note from '../../interfaces/Note';
+import Note from '../interfaces/Note';
 
-import {AppState, appState} from '../../index';
+import {appState} from '../index';
 
 export class Empty extends Component<{params}, {}> {
   render() {

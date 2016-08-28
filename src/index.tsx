@@ -6,48 +6,15 @@ import {observer} from 'mobx-react';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import DevTools from 'mobx-react-devtools';
 
-import {ContactList} from './components/ContactList/index';
-import {ContactDetails} from './components/ContactDetails/index';
-import {EditContact} from './components/EditContact/index';
-import {SearchBox} from './components/SearchBox/index';
-import {Empty} from './components/Empty/index';
+import {ContactList} from './components/NotesList';
+import {EditContact} from './components/EditNote';
+import {SearchBox} from './components/SearchBox';
+import {Empty} from './components/Empty';
 import Note from './interfaces/Note';
 import {NoteClass} from "./interfaces/Note";
-
-export class AppState {
-    @observable private _selectedContactId: string = null;
-    @observable notes: Array<Note> = [];
-    @observable searchQuery: string = '';
-
-    constructor() {
-        this.notes = [
-            new NoteClass('ddddd', 'ggggg'),
-            new NoteClass('ddddd1', 'ggggg1'),
-        ];
-    }
-
-    @computed
-    get filteredNotes() {
-        return this.notes;
-    }
-
-    @computed
-    get selectedNote():Note {
-        return this.filteredNotes[1];
-    }
-
-    @computed
-    get selectedContactId(): string {
-        return this._selectedContactId;
-    }
-
-    setSelectedContactId(id: string) {
-        this._selectedContactId = id;
-    }
-}
+import {AppState} from "./AppState";
 
 export const appState =  new AppState();
-
 
 @observer
 class App extends Component<{children: any, params: any}, {}> {
@@ -77,36 +44,22 @@ class AppWrapper extends Component<{params: any, children: any}, {}> {
 }
 
 @observer
-class ContactDetailsWrapper extends Component<{params: {contactId: string}}, {}> {
-
+class EditContactWrapper extends Component<{params: {noteId: string}}, {}> {
     componentWillMount() {
-        if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) === -1) {
-            appState.setSelectedContactId(this.props.params.contactId);
-        }
-    }
-
-    render() {
-        return <ContactDetails note={appState.selectedNote}/>
-    }
-}
-
-@observer
-class EditContactWrapper extends Component<{params: {contactId: string}}, {}> {
-    componentWillMount() {
-        if (this.props.params.contactId) {
-            appState.setSelectedContactId(this.props.params.contactId);
+        if (this.props.params.noteId) {
+            appState.setSelectedNoteId(this.props.params.noteId);
         }
     }
     render() {
-        return <EditContact contact={appState.selectedNote} />
+        return <EditContact note={appState.selectedNote} />
     }
 }
 
 @observer
 class NewContactWrapper extends Component<{params}, {}> {
     render() {
-        const contact = new NoteClass();
-        return <EditContact contact={contact} isNew={true} />
+        const note = new NoteClass();
+        return <EditContact note={note} isNew={true} />
     }
 }
 
@@ -114,10 +67,8 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path='/' component={AppWrapper}>
             <IndexRoute component={Empty} />
-            <Route path='search/:query' component={ContactDetailsWrapper} />
             <Route path='new' component={NewContactWrapper} />
-            <Route path=':contactId' component={ContactDetailsWrapper} />
-            <Route path=':contactId/edit' component={EditContactWrapper} />
+            <Route path=':noteId/edit' component={EditContactWrapper} />
         </Route>
     </Router>,
     document.getElementById('root'));

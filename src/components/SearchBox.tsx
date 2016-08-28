@@ -3,8 +3,8 @@ import {Component} from 'react';
 import {observer} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
-import Note from '../../interfaces/Note';
-import {AppState} from '../../index';
+import Note from '../interfaces/Note';
+import {AppState} from '../AppState';
 
 @observer
 export class SearchBox extends Component<{params: {query: string}, appState: AppState},{}> {
@@ -36,7 +36,7 @@ export class SearchBox extends Component<{params: {query: string}, appState: App
 
   endSeach() {
     if (!this.props.appState.searchQuery) {
-      this.props.appState.setSelectedContactId(null);
+      this.props.appState.setSelectedNoteId(null);
       browserHistory.replace('/');
     }
   }

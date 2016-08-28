@@ -3,11 +3,10 @@ import * as React from 'react';
 import {observer} from 'mobx-react';
 import {computed} from 'mobx';
 
-import Note from '../../interfaces/Note';
+import Note from '../interfaces/Note';
 
-import {AppState} from '../../index';
-import {ContactListItem} from './ContactListItem';
-import {ContactListDivider} from './ContactListDivider';
+import {AppState} from '../AppState';
+import {NoteListItem} from './NoteListItem';
 
 class Divider {
   public isDivider: boolean = true;
@@ -31,10 +30,9 @@ export class ContactList extends Component<{appState: AppState}, {}> {
           {this.notes.map(item => {
 
             const note = item as Note;
-            return <ContactListItem
+            return <NoteListItem
                       key={note.id.toString()}
                       note={note}
-                      appState={this.props.appState}
                       isSelected={this.props.appState.selectedNote === note} />
           })}
         </ul>

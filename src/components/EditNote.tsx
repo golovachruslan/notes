@@ -3,12 +3,12 @@ import {Component} from 'react';
 import {observer} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
-import Note from '../../interfaces/Note';
+import Note from '../interfaces/Note';
 
-import {AppState, appState} from '../../index';
+import {appState} from '../index';
 
 @observer
-export class EditContact extends Component<{contact: Note, isNew?: boolean}, {}> {
+export class EditContact extends Component<{note: Note, isNew?: boolean}, {}> {
 
   constructor (props) {
     super(props);
@@ -23,7 +23,7 @@ export class EditContact extends Component<{contact: Note, isNew?: boolean}, {}>
     if (this.props.isNew) {
       return browserHistory.push('/');
     }
-    browserHistory.push('/' + this.props.contact.id);
+    browserHistory.push('/' + this.props.note.id);
   }
 
   save() {
@@ -32,16 +32,15 @@ export class EditContact extends Component<{contact: Note, isNew?: boolean}, {}>
   }
 
   updateProperty (key, value) {
-    this.props.contact[key] = value;
+    this.props.note[key] = value;
   }
 
   onChange (event) {
-    debugger;
     this.updateProperty(event.target.name, event.target.value);
   }
 
   render() {
-    const note = this.props.contact;
+    const note = this.props.note;
 
     if (!note) {
       return <div className="details"></div>
@@ -59,12 +58,8 @@ export class EditContact extends Component<{contact: Note, isNew?: boolean}, {}>
             </h1>
           </div>
         </header>
-        <table>
-          <textarea name="body" placeholder="body" type="text" value={note.body} onChange={this.onChange}/>
-        </table>
+        <textarea name="body" placeholder="body" type="text" value={note.body} onChange={this.onChange}/>
         <footer>
-          <div className="left">
-          </div>
           <div className="right">
             <button onClick={this.quit.bind(this)}>Cancel</button>
             <button type="submit" onClick={this.save.bind(this)}>Save</button>
