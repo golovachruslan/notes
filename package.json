@@ -22,22 +22,26 @@
     "url": "https://github.com/mobxjs/mobx/issues"
   },
   "homepage": "http://mobxjs.github.com/mobx",
+  "dependencies": {
+    "classnames": "2.2.5",
+    "json-loader": "0.5.4",
+    "material-ui": "^0.15.4",
+    "mobx": "2.3.2",
+    "mobx-react": "3.3.1",
+    "mobx-react-devtools": "4.2.0",
+    "react": "15.1.0",
+    "react-dom": "15.1.0",
+    "react-router": "2.4.1"
+  },
   "devDependencies": {
+    "css-loader": "^0.24.0",
+    "less": "2.6.0",
+    "less-loader": "2.2.2",
     "react-hot-loader": "2.0.0-alpha-4",
     "style-loader": "0.13.1",
     "ts-loader": "0.8.2",
     "typescript": "1.8.10",
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1"
-  },
-  "dependencies": {
-    "react-router": "2.4.1",
-    "json-loader": "0.5.4",
-    "classnames": "2.2.5",
-    "mobx": "2.3.2",
-    "mobx-react": "3.3.1",
-    "mobx-react-devtools": "4.2.0",
-    "react": "15.1.0",
-    "react-dom": "15.1.0"
   }
 }

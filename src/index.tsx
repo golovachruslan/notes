@@ -14,12 +14,37 @@ import Note from './interfaces/Note';
 import {NoteClass} from "./interfaces/Note";
 import {AppState} from "./AppState";
 
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
+
+declare var require: {
+    <T>(path: string): T;
+    (paths: string[], callback: (...modules: any[]) => void): void;
+    ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void;
+};
+
+require("!style!css!less!./assets/global.less");
+
+const style = {
+    height: 100,
+    width: 100,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+};
+
+const MyAwesomeReactComponent = () => (
+    <RaisedButton label="Default" />
+);
+
 export const appState =  new AppState();
 
 @observer
 class App extends Component<{children: any, params: any}, {}> {
     render() {
         return (
+            <MuiThemeProvider>
             <div className="container">
                 <header className="main-header"></header>
                 <main>
@@ -30,8 +55,13 @@ class App extends Component<{children: any, params: any}, {}> {
                     {this.props.children}
                 </main>
                 <footer className="main-footer"></footer>
+                <Paper style={style} zDepth={1} >1111</Paper>
+                <Paper style={style} zDepth={2} >222</Paper>
+                <Paper style={style} zDepth={3} >4444</Paper>
+                    <MyAwesomeReactComponent />
                 <DevTools />
             </div>
+            </MuiThemeProvider>
         );
     }
 }

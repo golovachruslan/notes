@@ -16,10 +16,15 @@ module.exports = {
     extensions: ['', '.js', '.ts', '.tsx']
   },
   module: {
-    loaders: [{
-      test: /\.tsx?$/,
-      loaders: ['ts-loader'],
-      include: path.join(__dirname, 'src')
-    }]
+    loaders: [
+      {
+        test: /\.less$/,
+        loader: "style!css!less"
+      },
+      {
+        test: /\.tsx?$/,
+        loaders: ['ts-loader'],
+        include: path.join(__dirname, 'src')
+      }]
   }
 };
